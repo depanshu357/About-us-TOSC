@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Tilting Card</title>
+    <style>
+        body {
+
+            background-image: url('renato-ramos-puma-qcuaS2_jw4k-unsplash.jpg');
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-evenly;
+
+        }
+
+        .tilting-card-content {
+            --perpective: 500px;
+            --rotateX: 0deg;
+            --rotateY: 0deg;
+            --angle: 10deg;
+            grid-column: 1/-1;
+            grid-row: 1/-1;
+            display: grid;
+            place-content: center;
+            text-align: center;
+            /* border: 2px solid lime; */
+            /* padding: 2rem; */
+            width: 380px;
+            height: 532px;
+            margin: 10px;
+            /* background: linear-gradient(152.97deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
+            backdrop-filter: blur(21px); */
+            background: linear-gradient(244deg, rgb(56 243 197 / 20%) 9%, rgb(19 172 31 / 7%) 128%);
+            backdrop-filter: blur(12px);
+            /* Note: backdrop-filter has minimal browser support */
+            /* border: 2px solid red; */
+            border-radius: 16px;
+            transform:
+                perspective(var(--perpective)) rotateX(var(--rotateX)) rotateY(var(--rotateY));
+            transition: transform 350ms ease;
+        }
+
+        .image {
+            width: 189px;
+            margin: auto;
+            position: absolute;
+            top: 54px;
+            left: 94px;
+        }
+
+        .image img {
+            width: 189px;
+            border-radius: 100px;
+            /* margin: 20px auto; */
+        }
+
+        .text {
+            position: absolute;
+            top: 286px;
+            width: 100%;
+            margin: auto;
+            text-align: center;
+            font-family: 'Britanica-Bold';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 26px;
+            line-height: 31px;
+            text-align: center;
+
+            color: #FFFFFF;
+        }
+
+        .phone_logo {
+            position: absolute;
+            top: 81px;
+            left: 117px;
+            width: 20px;
+        }
+
+        .phone_number {
+            position: absolute;
+            top: 81px;
+            left: 142px;
+        }
+
+        .link {
+            position: absolute;
+            top: 437px;
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            justify-content: space-evenly;
+            align-items: center;
+
+        }
+
+        .link img {
+            width: 30px;
+        }
+
+        .tilting-card-wrapper {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 2fr);
+            /* border: 3px solid red; */
+            /* padding: 2rem; */
+            position: relative;
+        }
+
+        .mouse-position-tracker {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            /* background: lightskyblue; */
+            opacity: .2;
+            /* outline: 3px solid purple; */
+        }
+
+        .mouse-position-tracker:nth-of-type(3n) {
+            /* background: red; */
+            grid-column: 3/4;
+        }
+
+        .mouse-position-tracker:nth-of-type(3n-1) {
+            /* background: green; */
+            grid-column: 2/3;
+        }
+
+        .mouse-position-tracker:nth-of-type(3n-2) {
+            /* background: yellow; */
+            grid-column: 1/2;
+        }
+
+        .mouse-position-tracker:nth-child(n+4):nth-child(-n+6) {
+            grid-row: 2/3;
+        }
+
+        .mouse-position-tracker:nth-child(n):nth-child(-n+3) {
+            grid-row: 1/2;
+        }
+
+        .mouse-position-tracker:nth-child(n+7):nth-child(-n+9) {
+            grid-row: 3/4;
+        }
+
+        .mouse-position-tracker:nth-child(1):hover~.tilting-card-content {
+            --rotateX: var(--angle);
+            --rotateY: calc(var(--angle)*-1);
+        }
+
+        .mouse-position-tracker:nth-child(2):hover~.tilting-card-content {
+            --rotateX: var(--angle);
+        }
+
+        .mouse-position-tracker:nth-child(3):hover~.tilting-card-content {
+            --rotateX: var(--angle);
+            --rotateY: var(--angle);
+        }
+
+        .mouse-position-tracker:nth-child(4):hover~.tilting-card-content {
+            --rotateY: calc(-1*var(--angle));
+        }
+
+        .mouse-position-tracker:nth-child(6):hover~.tilting-card-content {
+            --rotateY: var(--angle);
+        }
+
+        .mouse-position-tracker:nth-child(7):hover~.tilting-card-content {
+            --rotateX: calc(-1*var(--angle));
+            --rotateY: calc(-1*var(--angle));
+        }
+
+        .mouse-position-tracker:nth-child(8):hover~.tilting-card-content {
+            --rotateX: calc(-1*var(--angle));
+        }
+
+        .mouse-position-tracker:nth-child(9):hover~.tilting-card-content {
+            --rotateX: calc(-1*var(--angle));
+            --rotateY: var(--angle);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="tilting-card-wrapper">
+            <div class="mouse-position-tracker"></div>
+            <div class="mouse-position-tracker"></div>
+            <div class="mouse-position-tracker"></div>
+            <div class="mouse-position-tracker"></div>
+            <div class="mouse-position-tracker"></div>
+            <div class="mouse-position-tracker"></div>
+            <div class="mouse-position-tracker"></div>
+            <div class="mouse-position-tracker"></div>
+            <div class="mouse-position-tracker"></div>
+            <div class="tilting-card-content">
+                <div class="image">
+                    <img src="apple-touch-icon-precomposed.png" alt="#">
+                </div>
+                <div class="text">
+                    <div class="name">Harion Vediya</div>
+                    <div class="position">HEAD, SHOW MANAGEMENT</div>
+                    <div class="phone_logo">
+                        <img src="Vector.png" alt="#">
+                    </div>
+                    <div class="phone_number">+1234235356</div>
+                </div>
+                <div class="link">
+                    <a href="https://www.google.com/" target="blank">
+                        <img src="Email icon.png" alt="#" srcset="">
+                    </a>
+                    <a href="https://www.google.com/" target="blank">
+                        <img src="FB icon.png" alt="#" srcset="">
+                    </a>
+                    <a href="https://www.google.com/" target="blank">
+                        <img src="LinkedIn icon.png" alt="#" srcset="">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="tilting-card-wrapper">
+            <div class="mouse-position-tracker"></div>
+            <div class="mouse-position-tracker"></div>
+            <div class="mouse-position-tracker"></div>
+            <div class="mouse-position-tracker"></div>
+            <div class="mouse-position-tracker"></div>
+            <div class="mouse-position-tracker"></div>
+            <div class="mouse-position-tracker"></div>
+            <div class="mouse-position-tracker"></div>
+            <div class="mouse-position-tracker"></div>
+            <div class="tilting-card-content">
+                <div class="image">
+                    <img src="apple-touch-icon-precomposed.png" alt="#">
+                </div>
+                <div class="text">
+                    <div class="name">Harion Vediya</div>
+                    <div class="position">HEAD, SHOW MANAGEMENT</div>
+                    <div class="phone_logo">
+                        <img src="Vector.png" alt="#">
+                    </div>
+                    <div class="phone_number">+1234235356</div>
+                </div>
+                <div class="link">
+                    <a href="https://www.google.com/" target="blank">
+                        <img src="Email icon.png" alt="#" srcset="">
+                    </a>
+                    <a href="https://www.google.com/" target="blank">
+                        <img src="FB icon.png" alt="#" srcset="">
+                    </a>
+                    <a href="https://www.google.com/" target="blank">
+                        <img src="LinkedIn icon.png" alt="#" srcset="">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="tilting-card-wrapper">
+            <div class="mouse-position-tracker"></div>
+            <div class="mouse-position-tracker"></div>
+            <div class="mouse-position-tracker"></div>
+            <div class="mouse-position-tracker"></div>
+            <div class="mouse-position-tracker"></div>
+            <div class="mouse-position-tracker"></div>
+            <div class="mouse-position-tracker"></div>
+            <div class="mouse-position-tracker"></div>
+            <div class="mouse-position-tracker"></div>
+            <div class="tilting-card-content">
+                <div class="image">
+                    <img src="apple-touch-icon-precomposed.png" alt="#">
+                </div>
+                <div class="text">
+                    <div class="name">Harion Vediya</div>
+                    <div class="position">HEAD, SHOW MANAGEMENT</div>
+                    <div class="phone_logo">
+                        <img src="Vector.png" alt="#">
+                    </div>
+                    <div class="phone_number">+1234235356</div>
+                </div>
+                <div class="link">
+                    <a href="https://www.google.com/" target="blank">
+                        <img src="Email icon.png" alt="#" srcset="">
+                    </a>
+                    <a href="https://www.google.com/" target="blank">
+                        <img src="FB icon.png" alt="#" srcset="">
+                    </a>
+                    <a href="https://www.google.com/" target="blank">
+                        <img src="LinkedIn icon.png" alt="#" srcset="">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
